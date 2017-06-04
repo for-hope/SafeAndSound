@@ -1,0 +1,81 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Main">
+
+        <CheckBoxPreference
+            android:key="checkbox_preference"
+            android:title="Enable PRO VERSION"
+            android:summary="Disabled" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Safe Settings">
+
+        <EditTextPreference
+            android:key="phone_numbers"
+            android:title="Trusted Phone Numbers "
+            android:summary="choose your phone numbers"
+            android:dialogTitle="Phone Numbers" />
+
+        <ListPreference
+            android:key="list_preference"
+            android:title="Group Call"
+            android:summary="Choose group calls"
+
+            android:dialogTitle="ring/dialog_title_list_preference" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Sound And Vibration">
+
+        <!-- This PreferenceScreen tag serves as a screen break (similar to page break
+             in word processing). Like for other preference types, we assign a key
+             here so it is able to save and restore its instance state. -->
+        <PreferenceScreen
+            android:key="Enable_Vibration"
+            android:title="Enable Vibration"
+            android:summary="Vibration is ON">
+
+            <!-- You can place more preferences here that will be shown on the next screen. -->
+
+            <CheckBoxPreference
+                android:key="Enable_Sound"
+                android:title="Enable Sound"
+                android:summary="Sound is ON" />
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:title="Enable_Sound"
+            android:summary="Sound is ON">
+
+            <intent android:action="android.intent.action.VIEW"
+                android:data="http://www.android.com" />
+
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="ing/preference_attributes">
+
+        <CheckBoxPreference
+            android:key="parent_checkbox_preference"
+            android:title="tring/title_parent_preference"
+            android:summary="string/summary_parent_preference" />
+
+        <!-- The visual style of a child is defined by this styled theme attribute. -->
+        <CheckBoxPreference
+            android:key="child_checkbox_preference"
+            android:dependency="parent_checkbox_preference"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:title="tring/title_child_preference"
+            android:summary="string/summary_child_preference" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

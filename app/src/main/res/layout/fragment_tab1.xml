@@ -1,0 +1,90 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9ad100"
+    tools:context="layout.TAB1">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.DoubleBounce"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_alignBottom="@+id/safeButton"
+            android:layout_alignEnd="@+id/safeButton"
+            android:layout_alignLeft="@+id/safeButton"
+            android:layout_alignRight="@+id/safeButton"
+            android:layout_alignStart="@+id/safeButton"
+            android:layout_alignTop="@+id/safeButton"
+            android:layout_gravity="center"
+            app:SpinKit_Color="@color/colorAccent" />
+
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/redCircle"
+            style="@style/SpinKitView.Large.DoubleBounce"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_alignBottom="@+id/circleButton"
+            android:layout_alignEnd="@+id/circleButton"
+            android:layout_alignLeft="@+id/circleButton"
+            android:layout_alignRight="@+id/circleButton"
+            android:layout_alignStart="@+id/circleButton"
+            android:layout_alignTop="@+id/circleButton"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorAccentN" />
+
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/safeButton"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="false"
+            android:src="@drawable/ic_action_tick"
+            android:visibility="visible"
+            app:cb_color="#739f16"
+            app:cb_pressedRingWidth="8dip"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="193dp" />
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/circleButton"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="false"
+            android:src="@drawable/ic_action1_tick"
+            android:visibility="gone"
+            app:cb_color="#f75f4b"
+            app:cb_pressedRingWidth="8dip"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="193dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/your_statue_is_safe"
+            android:textAllCaps="true"
+            android:textColor="@android:color/background_light"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13dp" />
+    </RelativeLayout>
+</FrameLayout>

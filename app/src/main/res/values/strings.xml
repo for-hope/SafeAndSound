@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">SAS</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="my_items">
+        <item>Add Contacts</item>
+        <item>Costume SMS</item>
+        <item>Repeating Period</item>
+        <item>Favorites</item>
+        <item>More Settings</item>
+        <item>Report a Problem</item>
+    </string-array>
+
+    <integer-array name="img_id_arr">
+        <item>@drawable/ic_perm_contact_calendar_white_24dp</item>
+        <item>@drawable/ic_action_tick</item>
+        <item>@drawable/ic_schedule_white_24dp</item>
+        <item>@drawable/ic_action1_tick</item>
+        <item>@drawable/ic_settings_phone_white_24dp</item>
+        <item>@drawable/ic_report_problem_white_24dp</item>
+    </integer-array>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_statue_is_safe">Your statue is : SAFE</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="statue_will_change_after_00_seconds">Statue will change after 00 seconds!</string>
+</resources>

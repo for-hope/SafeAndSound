@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8bc34a</color>
+    <color name="colorPrimaryDark">#5a9216</color>
+    <color name="colorAccent1">#008e2a</color>
+    <color name="colorAccentx">#bef67a</color>
+    <color name="colorAccent">#376400</color>
+    <color name="colorPrimaryN">#f44336</color>
+    <color name="colorPrimaryDarkN">#ba000d</color>
+    <color name="colorAccentN">#c4001d</color>
+    <color name="Safe">#739f16</color>
+    <color name="NotSafe">#f62626</color>
+    <color name="BtnNotSafe">#f75f4b</color>
+
+
+
+</resources>
