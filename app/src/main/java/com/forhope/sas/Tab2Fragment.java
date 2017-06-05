@@ -1,7 +1,7 @@
 package com.forhope.sas;
 
 import android.content.DialogInterface;
-import android.content.Intent;
+
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -19,15 +19,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 public class Tab2Fragment extends Fragment {
     public static final String TAG = "Tab1Fragment";
     private String[] dummyStrings;
+    private String[] dummyDes;
     private int[] myImageList;
     private int[] colors;
-    private RelativeLayout listLayout;
     String m_Text;
     @Nullable
     @Override
@@ -36,10 +36,11 @@ public class Tab2Fragment extends Fragment {
 
         ListView listView = (ListView) view.findViewById(R.id.list);
         dummyStrings = getResources().getStringArray(R.array.my_items);
+        dummyDes = getResources().getStringArray(R.array.my_des_items);
       // myImageList = getResources().getIntArray(R.array.img_id_arr);
         myImageList = new int[]{R.drawable.ic_perm_contact_calendar_white_24dp, R.drawable.ic_action_tick,R.drawable.ic_schedule_white_24dp,R.drawable.ic_action1_tick,R.drawable.ic_settings_phone_white_24dp,R.drawable.ic_report_problem_white_24dp};
         colors= new int[]{Color.rgb(0,206,209),Color.rgb(60,179,113),R.color.Safe, Color.rgb(255,99,71),Color.rgb(255,140,0),Color.rgb(147,112,219)};
-        listLayout = (RelativeLayout) getActivity().findViewById(R.id.list_layout);
+
 
 
 
@@ -86,7 +87,7 @@ public class Tab2Fragment extends Fragment {
 
         return  view;
     }
-    class CostumeAdapter extends BaseAdapter {
+   private class CostumeAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -109,7 +110,7 @@ public class Tab2Fragment extends Fragment {
             TextView title = (TextView) convertView.findViewById(R.id.textView_title);
             title.setText(dummyStrings[position]);
             TextView description= (TextView) convertView.findViewById(R.id.textView_description);
-            description.setText(dummyStrings[position]);
+            description.setText(dummyDes[position]);
             ImageView img = (ImageView) convertView.findViewById(R.id.icon_img);
             img.setImageResource(myImageList[position]);
             RelativeLayout imgIcon = (RelativeLayout) convertView.findViewById(R.id.CircleLayout);
