@@ -59,6 +59,7 @@ public class Tab2Fragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 intent.putExtra("string", "go to another Activity from ListView position: " + (position + 1));
                 startActivity(intent);*/
+                //Adding Dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Title");
 // Set up the input
