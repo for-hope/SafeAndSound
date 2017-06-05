@@ -21,9 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by Lamine on 5/31/2017.
- */
 
 public class Tab2Fragment extends Fragment {
     public static final String TAG = "Tab1Fragment";
@@ -61,11 +58,11 @@ public class Tab2Fragment extends Fragment {
                 startActivity(intent);*/
                 //Adding Dialog/
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Title");
+                builder.setTitle("Costume SMS");
 // Set up the input
                 final EditText input = new EditText(getContext());
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                input.setInputType(InputType.TYPE_CLASS_TEXT| InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                 builder.setView(input);
 
 // Set up the buttons
