@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -39,12 +40,16 @@ public class Tab2Fragment extends Fragment {
     private int[] myImageList;
     private int[] colors;
     private static final int RESULT_PICK_CONTACT = 1;
+    private Contacts contact;
+    MySQLiteHelper db;
+    List<Contacts> list;
     String m_Text;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab2,container,false);
-
+        db = new MySQLiteHelper(getContext());
+        list = db.getAllContacts();
         ListView listView = (ListView) view.findViewById(R.id.list);
         dummyStrings = getResources().getStringArray(R.array.my_items);
         dummyDes = getResources().getStringArray(R.array.my_des_items);
@@ -169,8 +174,9 @@ public class Tab2Fragment extends Fragment {
                 String number = cursor.getString(column);
                 String nameYes = cursor.getString(column2);
                 Toast.makeText(getContext(), "Number=" + number + " " + nameYes, Toast.LENGTH_SHORT).show();
-                saveInfo(nameYes,number);
-
+                //saveInfo(nameYes,number);
+                contact = new Contacts(nameYes,number);
+                db.addContact(contact);
             }
         }
     }
@@ -187,10 +193,11 @@ public class Tab2Fragment extends Fragment {
         Toast.makeText(getContext(),"saved",Toast.LENGTH_LONG).show();
     }
     public void displayInfo() {
-        SharedPreferences preferences = getActivity().getSharedPreferences("UserName", Context.MODE_PRIVATE);
+       /* SharedPreferences preferences = getActivity().getSharedPreferences("UserName", Context.MODE_PRIVATE);
         String namePicked = preferences.getString("username","");
-        String numberPicked = preferences.getString("number","");
-        Toast.makeText(getContext(),"Name = " + namePicked + "         Number = " + numberPicked,Toast.LENGTH_LONG).show();
+        String numberPicked = preferences.getString("number","");*/
+        list = db.getAllContacts();
+        Toast.makeText(getContext(),"Name = " + list.get(0).getContactName() + "         Number = " + list.get(0).getContactNumber() ,Toast.LENGTH_LONG).show();
     }
 
 }
