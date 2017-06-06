@@ -10,6 +10,8 @@ import android.util.Log;
 import java.util.LinkedList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database Version
@@ -52,10 +54,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     // Contactss Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_TITLE = "contactName";
-    private static final String KEY_AUTHOR = "contactNumber";
+    private static final String KEY_NAME = "contactName";
+    private static final String KEY_NUMBER = "contactNumber";
 
-    private static final String[] COLUMNS = {KEY_ID,KEY_TITLE,KEY_AUTHOR};
+    private static final String[] COLUMNS = {KEY_ID,KEY_NAME, KEY_NUMBER};
 
     public void addContact(Contacts contacts){
         Log.d("addContacts", contacts.toString());
@@ -64,8 +66,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, contacts.getContactName()); // get title
-        values.put(KEY_AUTHOR, contacts.getContactNumber()); // get author
+        values.put(KEY_NAME, contacts.getContactName()); // get title
+        values.put(KEY_NUMBER, contacts.getContactNumber()); // get author
 
         // 3. insert
         db.insert(TABLE_CONTACTS, // table
@@ -187,6 +189,46 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
         db.delete(TABLE_CONTACTS, null, null);
 
+    }
+    public Cursor getRecords() {
+        getReadableDatabase();
+
+        // TodoDatabaseHandler is a SQLiteOpenHelper class connecting to SQLite
+
+// Get access to the underlying writeable database
+        SQLiteDatabase db = this.getReadableDatabase();
+// Query for items from the database and get a cursor back
+        Cursor todoCursor = db.rawQuery("SELECT rowid _id, * FROM " + TABLE_CONTACTS, null);
+        return  todoCursor;
+    }
+    public boolean hasObject(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selectString = "SELECT * FROM " + TABLE_CONTACTS + " WHERE " + KEY_NUMBER + " =?";
+
+        // Add the String you are searching by here.
+        // Put it in an array to avoid an unrecognized token error
+        Cursor cursor = db.rawQuery(selectString, new String[] {id});
+
+        boolean hasObject = false;
+        if(cursor.moveToFirst()){
+            hasObject = true;
+
+            //region if you had multiple records to check for, use this region.
+
+            int count = 0;
+            while(cursor.moveToNext()){
+                count++;
+            }
+            //here, count is records found
+            Log.d(TAG, String.format("%d records found", count));
+
+            //endregion
+
+        }
+
+        cursor.close();          // Dont forget to close your cursor
+        db.close();              //AND your Database!
+        return hasObject;
     }
 }
 
