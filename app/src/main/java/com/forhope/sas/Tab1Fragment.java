@@ -59,12 +59,15 @@ public class Tab1Fragment extends Fragment {
         redCircle = (SpinKitView) view.findViewById(R.id.redCircle);
         greenCircle = (SpinKitView) view.findViewById(R.id.spin_kit);
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        if (isSafe==true){
+        if (isSafe){
           safeStatue(view);
+            SafetyMode.isSafe=true;
             Log.d("TAG","SAFE");
 
         } else {
             unSaveStatue(view);
+            SafetyMode.isSafe = false;
+            SafetyMode.unSafeMode(getContext());
             Log.d("TAG","not SAFE");
         }
         view.findViewById(R.id.circleButton).setOnClickListener(new View.OnClickListener() {
@@ -81,7 +84,7 @@ public class Tab1Fragment extends Fragment {
         view.findViewById(R.id.safeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_SHORT).show();
 
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setTitle("Confirmation");
@@ -128,7 +131,9 @@ public class Tab1Fragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        Toast.makeText(getActivity(), "Button OK", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "Button OK", Toast.LENGTH_LONG).show();
+                        SafetyMode.isSafe=false;
+                        SafetyMode.unSafeMode(getContext());
                         unSaveStatue(view);
                         isSafe = false;
                         vibe.vibrate(300);

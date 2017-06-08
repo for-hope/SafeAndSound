@@ -193,7 +193,7 @@ public class Tab2Fragment extends Fragment {
         d.setMessage("Please choose the period which your SMS will be repeatedly sent in UNSAFE MODE");
         d.setView(dialogView);
         final NumberPicker numberPicker = (NumberPicker) dialogView.findViewById(R.id.dialog_number_picker);
-        numberPicker.setMaxValue(50);
+        numberPicker.setMaxValue(60);
         numberPicker.setMinValue(1);
         numberPicker.setWrapSelectorWheel(false);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -206,6 +206,7 @@ public class Tab2Fragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d(TAG, "onClick: " + numberPicker.getValue());
+                Prefrences.saveInfo(getContext(),"timePeriod",numberPicker.getValue());
             }
         });
         d.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -238,6 +239,7 @@ public class Tab2Fragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
+                Prefrences.saveInfo(getContext(),"costumeSMS",m_Text);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

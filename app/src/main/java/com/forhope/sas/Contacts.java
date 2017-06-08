@@ -1,8 +1,5 @@
 package com.forhope.sas;
 
-/**
- * Created by lamine on 06/06/2017.
- */
 
 public class Contacts {
 private String contactName;
