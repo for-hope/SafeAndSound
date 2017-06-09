@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.github.ybq.android.spinkit.SpinKitView;
 
@@ -38,7 +35,7 @@ public class Tab1Fragment extends Fragment {
     private CircleButton circleButton;
     private  CircleButton safeButton;
     private TextView textView;
-    public   static  boolean isSafe=true;
+   // public   static  boolean isSafe=true;
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
@@ -48,7 +45,7 @@ public class Tab1Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab1,container,false);
-        final View viewList = inflater.inflate(R.layout.costume_list,container,false);
+       // final View viewList = inflater.inflate(R.layout.costume_list,container,false);
         frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout);
         circleButton = (CircleButton)  view.findViewById(R.id.circleButton);
         safeButton = (CircleButton)  view.findViewById(R.id.safeButton);
@@ -59,7 +56,7 @@ public class Tab1Fragment extends Fragment {
         redCircle = (SpinKitView) view.findViewById(R.id.redCircle);
         greenCircle = (SpinKitView) view.findViewById(R.id.spin_kit);
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        if (isSafe){
+        if (SafetyMode.isSafe){
           safeStatue(view);
            // SafetyMode.isSafe=true;
             Log.d("TAG","SAFE");
@@ -73,7 +70,7 @@ public class Tab1Fragment extends Fragment {
         view.findViewById(R.id.circleButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isSafe = true;
+                SafetyMode.isSafe = true;
                 safeStatue(view);
                 vibe.vibrate(200);
 
@@ -105,7 +102,7 @@ public class Tab1Fragment extends Fragment {
                             if (dialog.isShowing()) {
                                 label.setText("done!");
                                 unSaveStatue(view);
-                                isSafe = false;
+                                SafetyMode.isSafe = false;
                                 vibe.vibrate(300);
                                 dialog.cancel();
                             }
@@ -132,10 +129,10 @@ public class Tab1Fragment extends Fragment {
                     public void onClick(View view) {
 
                         //Toast.makeText(getActivity(), "Button OK", Toast.LENGTH_LONG).show();
-                        SafetyMode.isSafe=false;
+                       // SafetyMode.isSafe=false;
                         //SafetyMode.unSafeMode(getContext());
                         unSaveStatue(view);
-                        isSafe = false;
+                        SafetyMode.isSafe = false;
                         vibe.vibrate(300);
                         dialog.cancel();
 

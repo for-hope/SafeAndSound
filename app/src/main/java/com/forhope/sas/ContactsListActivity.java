@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-/**
- * Created by lamine on 06/06/2017.
- */
-
 public class ContactsListActivity extends Activity {
     ListView listView;
     MySQLiteHelper db;

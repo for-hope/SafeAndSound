@@ -33,6 +33,8 @@
             android:label="My Service"
             android:exported="false">
         </service>
+        <receiver android:name=".MyReceiver" >
+        </receiver>
     </application>
 
 </manifest>

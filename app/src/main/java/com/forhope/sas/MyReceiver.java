@@ -12,5 +12,6 @@ public class MyReceiver extends BroadcastReceiver {
     {
         Toast.makeText(context,"TIME IS UP",Toast.LENGTH_LONG).show();
         SafetyMode.unSafeMode(context);
+
     }
 }
