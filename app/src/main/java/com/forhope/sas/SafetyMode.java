@@ -4,11 +4,15 @@ package com.forhope.sas;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.os.IBinder;
+import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.Date;
 
-public class SafetyMode {
+public class SafetyMode extends Service {
     public  static  boolean isSafe;
     private static String costumeSMS;
     private static int smsPeriod;
@@ -76,5 +80,28 @@ public class SafetyMode {
 
     }
 
+   @Override
+   public void onCreate() {
+       super.onCreate();
+       isSafe = false;
+       unSafeMode(getApplicationContext());
 
+   }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Toast.makeText(SafetyMode.this,"Service Started",Toast.LENGTH_LONG).show();
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        Toast.makeText(SafetyMode.this,"Service Stopped",Toast.LENGTH_LONG).show();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }

@@ -61,13 +61,13 @@ public class Tab1Fragment extends Fragment {
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         if (isSafe){
           safeStatue(view);
-            SafetyMode.isSafe=true;
+           // SafetyMode.isSafe=true;
             Log.d("TAG","SAFE");
 
         } else {
             unSaveStatue(view);
             SafetyMode.isSafe = false;
-            SafetyMode.unSafeMode(getContext());
+            //SafetyMode.unSafeMode(getContext());
             Log.d("TAG","not SAFE");
         }
         view.findViewById(R.id.circleButton).setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class Tab1Fragment extends Fragment {
 
                         //Toast.makeText(getActivity(), "Button OK", Toast.LENGTH_LONG).show();
                         SafetyMode.isSafe=false;
-                        SafetyMode.unSafeMode(getContext());
+                        //SafetyMode.unSafeMode(getContext());
                         unSaveStatue(view);
                         isSafe = false;
                         vibe.vibrate(300);
@@ -153,6 +153,9 @@ public class Tab1Fragment extends Fragment {
 
     }
 private void unSaveStatue(View view) {
+    Intent intent = new Intent(getContext(),SafetyMode.class);
+    getActivity().startService(intent);
+
     frameLayout.setBackgroundColor(getResources().getColor(R.color.NotSafe));
     safeButton.setVisibility(View.GONE);
     circleButton.setVisibility(View.VISIBLE);
@@ -177,6 +180,9 @@ private void unSaveStatue(View view) {
 
 }
 private void safeStatue(View view) {
+    Intent intent = new Intent(getContext(),SafetyMode.class);
+    getActivity().stopService(intent);
+
     frameLayout.setBackgroundColor(Color.parseColor("#9ad100"));
     safeButton.setVisibility(View.VISIBLE);
     circleButton.setVisibility(View.GONE);

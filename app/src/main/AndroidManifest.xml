@@ -28,6 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".SafetyMode"
+            android:label="My Service"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>
