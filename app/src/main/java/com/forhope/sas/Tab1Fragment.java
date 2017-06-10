@@ -61,7 +61,8 @@ public class Tab1Fragment extends Fragment {
            // SafetyMode.isSafe=true;
             Log.d("TAG","SAFE");
 
-        } else {
+        }
+        else {
             unSaveStatue(view);
             SafetyMode.isSafe = false;
             //SafetyMode.unSafeMode(getContext());
@@ -71,6 +72,7 @@ public class Tab1Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 SafetyMode.isSafe = true;
+                safetyStart();
                 safeStatue(view);
                 vibe.vibrate(200);
 
@@ -103,6 +105,7 @@ public class Tab1Fragment extends Fragment {
                                 label.setText("done!");
                                 unSaveStatue(view);
                                 SafetyMode.isSafe = false;
+                                safetyStart();
                                 vibe.vibrate(300);
                                 dialog.cancel();
                             }
@@ -133,6 +136,7 @@ public class Tab1Fragment extends Fragment {
                         //SafetyMode.unSafeMode(getContext());
                         unSaveStatue(view);
                         SafetyMode.isSafe = false;
+                        safetyStart();
                         vibe.vibrate(300);
                         dialog.cancel();
 
@@ -150,8 +154,6 @@ public class Tab1Fragment extends Fragment {
 
     }
 private void unSaveStatue(View view) {
-    Intent intent = new Intent(getContext(),SafetyMode.class);
-    getActivity().startService(intent);
 
     frameLayout.setBackgroundColor(getResources().getColor(R.color.NotSafe));
     safeButton.setVisibility(View.GONE);
@@ -176,10 +178,7 @@ private void unSaveStatue(View view) {
     }
 
 }
-private void safeStatue(View view) {
-    Intent intent = new Intent(getContext(),SafetyMode.class);
-    getActivity().stopService(intent);
-
+private  void safeStatue(View view) {
     frameLayout.setBackgroundColor(Color.parseColor("#9ad100"));
     safeButton.setVisibility(View.VISIBLE);
     circleButton.setVisibility(View.GONE);
@@ -203,6 +202,15 @@ private void safeStatue(View view) {
 
     }
 }
+private void safetyStart() {
+    if(!SafetyMode.isSafe){
+        Intent intent = new Intent(getContext(),SafetyMode.class);
+        getActivity().startService(intent);
 
+    } else {
+        Intent intent = new Intent(getContext(),SafetyMode.class);
+        getActivity().stopService(intent);
+    }
+}
 
 }

@@ -54,15 +54,9 @@ public class MainActivity extends AppCompatActivity {
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         //toolbar.setTitle("Hello There!");
-
-
-
         //for red colored toolbar title
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -74,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
        // appBarLayout.setBackgroundColor(Color.RED);
 
@@ -188,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
    }*/
-
 }
 
 

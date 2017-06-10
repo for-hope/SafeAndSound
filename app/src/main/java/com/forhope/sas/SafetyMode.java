@@ -19,11 +19,11 @@ public class SafetyMode extends Service {
     private static int smsPeriod;
 
     public static void unSafeMode(Context context) {
-        Toast.makeText(context,"SafetyCheck",Toast.LENGTH_LONG).show();
+      //  Toast.makeText(context,"SafetyCheck",Toast.LENGTH_LONG).show();
         if(!isSafe) {
             SharedPreferences sharedPref = context.getSharedPreferences("userPref",Context.MODE_APPEND);
             String costumeSMS = sharedPref.getString("costumeSMS", "");
-        smsPeriod = sharedPref.getInt("timePeriod",0);
+            smsPeriod = sharedPref.getInt("timePeriod",0);
             MySQLiteHelper db = new MySQLiteHelper(context);
         try {
           for(int i = 0; i< db.getAllContacts().size(); i++) {
@@ -33,7 +33,8 @@ public class SafetyMode extends Service {
               SmsManager.getDefault().sendTextMessage(db.getAllContacts().get(i).getContactNumber(), null,
                       costumeSMS, null, null);
           }
-            Alarm(context);
+          Alarm(context);
+
 
         } catch (Exception e) {
             AlertDialog.Builder alertDialogBuilder = new
@@ -49,7 +50,6 @@ public class SafetyMode extends Service {
 
         try{
             Intent someIntent = new Intent(context, MyReceiver.class); // intent to be launched
-
             // note this could be getActivity if you want to launch an activity
             PendingIntent pendingIntent = PendingIntent.getBroadcast(
                     context,
@@ -81,9 +81,9 @@ public class SafetyMode extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(SafetyMode.this,"Service Started",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Service Started",Toast.LENGTH_LONG).show();
         isSafe=false;
-        unSafeMode(SafetyMode.this);
+        Alarm(getApplicationContext());
         return START_STICKY;
     }
 
