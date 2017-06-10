@@ -27,8 +27,6 @@ import java.util.Date;
 public class SafetyMode extends Service {
     public static boolean isSafe = true;
     private static int smsPeriod;
-    LocationManager locationManager;
-    String provider;
 
     public static void unSafeMode(Context context,String maps) {
         //  Toast.makeText(context,"SafetyCheck",Toast.LENGTH_LONG).show();
@@ -90,24 +88,7 @@ public class SafetyMode extends Service {
     public void onCreate() {
         super.onCreate();
         isSafe = true;
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        provider = locationManager.getBestProvider(new Criteria(), false);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-              //public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                         int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(provider);
-        if(location!= null) {
-            Log.i("Location Info","LOCATION ACHIEVED");
-        } else {
-            Log.i("Location Info","NO LOCATION");
-        }
+
    }
 
     @Override

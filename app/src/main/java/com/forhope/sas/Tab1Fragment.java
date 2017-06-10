@@ -3,6 +3,7 @@ package com.forhope.sas;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,6 +84,13 @@ public class Tab1Fragment extends Fragment implements LocationListener {
         Location location = locationManager.getLastKnownLocation(provider);
         if (location != null) {
             Log.i("Location Info", "LOCATION ACHIEVED");
+            double lat = location.getLatitude();
+            double lon = location.getLongitude();
+            Log.i("Latitude",Double.toString(lat));
+            Log.i("Longitude",Double.toString(lon));
+            String latString = String.format("%.5f", lat);
+            String lonString = String.format("%.5f", lon);
+            googlemapslink = "www.google.dz/maps/search/"+latString+","+lonString;
         } else {
             Log.i("Location Info", "NO LOCATION");
             googlemapslink = "Location Services is Off But the Sender is in Trouble";
@@ -114,6 +123,25 @@ public class Tab1Fragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 //  Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_SHORT).show();
+                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    final AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                 else {
+
 
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setTitle("Confirmation");
@@ -158,9 +186,7 @@ public class Tab1Fragment extends Fragment implements LocationListener {
                     @Override
                     public void onClick(View view) {
 
-                        //Toast.makeText(getActivity(), "Button OK", Toast.LENGTH_LONG).show();
-                        // SafetyMode.isSafe=false;
-                        //SafetyMode.unSafeMode(getContext());
+                      // starting the service
                         unSaveStatue(view);
                         SafetyMode.isSafe = false;
                         safetyStart();
@@ -171,7 +197,7 @@ public class Tab1Fragment extends Fragment implements LocationListener {
 
 
                     }
-                });
+                }); }
 
 
             }
@@ -266,7 +292,9 @@ public class Tab1Fragment extends Fragment implements LocationListener {
         double lon = location.getLongitude();
         Log.i("Latitude",Double.toString(lat));
         Log.i("Longitude",Double.toString(lon));
-        googlemapslink = "www.google.dz/maps/search/"+lat+","+lon;
+        String latString = String.format("%.5f", lat);
+        String lonString = String.format("%.5f", lon);
+        googlemapslink = "www.google.dz/maps/search/"+latString+","+lonString;
         Log.i("GOOGLE",googlemapslink);
     }
 
@@ -284,4 +312,5 @@ public class Tab1Fragment extends Fragment implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
+
 }
