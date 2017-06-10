@@ -11,7 +11,7 @@ public class MyReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent)
     {
         Toast.makeText(context,"TIME IS UP",Toast.LENGTH_LONG).show();
-        SafetyMode.unSafeMode(context);
+        SafetyMode.unSafeMode(context,Tab1Fragment.googlemapslink);
 
     }
 }
