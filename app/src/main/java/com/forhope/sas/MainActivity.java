@@ -1,6 +1,7 @@
 package com.forhope.sas;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},1);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+
+
 
 
         Log.d("TAG", "onCreate Starting");

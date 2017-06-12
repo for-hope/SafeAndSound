@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -21,6 +22,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -292,11 +294,14 @@ public class Tab1Fragment extends Fragment implements LocationListener {
         double lon = location.getLongitude();
         Log.i("Latitude",Double.toString(lat));
         Log.i("Longitude",Double.toString(lon));
+       // Convert into String
+        // Hello World Comment
         String latString = String.format("%.5f", lat);
         String lonString = String.format("%.5f", lon);
         googlemapslink = "www.google.dz/maps/search/"+latString+","+lonString;
         Log.i("GOOGLE",googlemapslink);
     }
+  
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
