@@ -43,8 +43,6 @@ public class SafetyMode extends Service {
                     SmsManager.getDefault().sendTextMessage(db.getAllContacts().get(i).getContactNumber(), null,
                             costumeSMS + " " + maps, null, null);
                 }
-                Alarm(context);
-
 
             } catch (Exception e) {
                 AlertDialog.Builder alertDialogBuilder = new
@@ -56,33 +54,7 @@ public class SafetyMode extends Service {
         }
     }
 
-    private static void Alarm(Context context) {
-        Date when = new Date(System.currentTimeMillis());
 
-        try {
-            Intent someIntent = new Intent(context, MyReceiver.class); // intent to be launched
-            // note this could be getActivity if you want to launch an activity
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                    context,
-                    0, // id, optional
-                    someIntent, // intent to launch
-                    PendingIntent.FLAG_CANCEL_CURRENT); // PendintIntent flag
-
-            AlarmManager alarms = (AlarmManager) context.getSystemService(
-                    Context.ALARM_SERVICE);
-
-            alarms.setRepeating(AlarmManager.RTC_WAKEUP,
-                    when.getTime(),
-                    1000 * 60 * 60 * smsPeriod,
-                    pendingIntent);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     @Override
     public void onCreate() {
@@ -94,14 +66,22 @@ public class SafetyMode extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(getApplicationContext(),"Service Started",Toast.LENGTH_LONG).show();
-        isSafe=false;
-        Alarm(getApplicationContext());
+         isSafe=false;
+        AlarmManager alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent someIntent = new Intent(this, MyReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, someIntent, 0);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),60000*smsPeriod,
+                pendingIntent);
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         Toast.makeText(SafetyMode.this,"Service Stopped",Toast.LENGTH_LONG).show();
+        AlarmManager alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, MyReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.cancel(pendingIntent);
         isSafe = true;
     }
 

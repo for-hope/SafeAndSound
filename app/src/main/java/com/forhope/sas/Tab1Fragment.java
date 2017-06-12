@@ -69,43 +69,20 @@ public class Tab1Fragment extends Fragment implements LocationListener {
         redCircle = (SpinKitView) view.findViewById(R.id.redCircle);
         greenCircle = (SpinKitView) view.findViewById(R.id.spin_kit);
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         provider = locationManager.getBestProvider(new Criteria(), false);
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-           return view;
-        }
 
-        Location location = locationManager.getLastKnownLocation(provider);
-        if (location != null) {
-            Log.i("Location Info", "LOCATION ACHIEVED");
-            double lat = location.getLatitude();
-            double lon = location.getLongitude();
-            Log.i("Latitude",Double.toString(lat));
-            Log.i("Longitude",Double.toString(lon));
-            String latString = String.format("%.5f", lat);
-            String lonString = String.format("%.5f", lon);
-            googlemapslink = "www.google.dz/maps/search/"+latString+","+lonString;
-        } else {
-            Log.i("Location Info", "NO LOCATION");
-            googlemapslink = "Location Services is Off But the Sender is in Trouble";
-        }
 
         if (SafetyMode.isSafe) {
             safeStatue(view);
-            // SafetyMode.isSafe=true;
+            //SafetyMode.isSafe=true;
             Log.d("TAG", "SAFE");
 
         } else {
             unSaveStatue(view);
-            SafetyMode.isSafe = false;
+          //  SafetyMode.isSafe = false;
             //SafetyMode.unSafeMode(getContext());
             Log.d("TAG", "not SAFE");
         }
@@ -125,6 +102,7 @@ public class Tab1Fragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 //  Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_SHORT).show();
+
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
@@ -210,7 +188,24 @@ public class Tab1Fragment extends Fragment implements LocationListener {
     }
 
     private void unSaveStatue(View view) {
-
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+        } else {
+        Location location = locationManager.getLastKnownLocation(provider);
+        if (location != null) {
+            Log.i("Location Info", "LOCATION ACHIEVED");
+            double lat = location.getLatitude();
+            double lon = location.getLongitude();
+            Log.i("Latitude",Double.toString(lat));
+            Log.i("Longitude",Double.toString(lon));
+            String latString = String.format("%.5f", lat);
+            String lonString = String.format("%.5f", lon);
+            googlemapslink = "www.google.dz/maps/search/"+latString+","+lonString;
+        } else {
+            Log.i("Location Info", "NO LOCATION");
+            googlemapslink = "Location Services is Off But the Sender is in Trouble";
+        }
+        }
         frameLayout.setBackgroundColor(getResources().getColor(R.color.NotSafe));
         safeButton.setVisibility(View.GONE);
         circleButton.setVisibility(View.VISIBLE);
@@ -276,16 +271,11 @@ public class Tab1Fragment extends Fragment implements LocationListener {
         super.onResume();
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+        } else {
+            locationManager.requestLocationUpdates(provider, 400, 1, this);
         }
-        locationManager.requestLocationUpdates(provider, 400, 1, this);
+
     }
 
     @Override
